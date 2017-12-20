@@ -228,7 +228,11 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 		anims += AccurateMove(a.x, a.y)
 	}
 
-    fun FObject.速度(块: DoublePair.() -> Unit) = this.velocity(块)
+    fun FObject.速度(块: 左上角坐标.() -> Unit) {
+        val a = 左上角坐标(0.0, 0.0)
+        块(a)
+        anims += AccurateMove(a.左上角x, a.左上角y)
+    }
 
 	fun FObject.velocity(x: Int, y: Int) = velocity(x.toDouble(), y.toDouble())
 
@@ -277,13 +281,17 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 		anims += AccelerateMove(a.x, a.y)
 	}
 
-    fun FObject.加速(块: DoublePair.() -> Unit) = accelerate(块)
+    fun FObject.加速(块: 加速度对.() -> Unit) {
+        val a = 加速度对(0.0, 0.0)
+        块(a)
+        anims += AccelerateMove(a.横向加速度_左负右正, a.纵向加速度_上负下正)
+    }
 
 	fun FObject.accelerate(x: Double, y: Double) {
 		anims += AccelerateMove(x, y)
 	}
 
-    fun FObject.加速(x: Double, y: Double) = accelerate(x, y)
+    fun FObject.加速(横向加速度_左负右正: Double, 纵向加速度_上负下正: Double) = accelerate(横向加速度_左负右正, 纵向加速度_上负下正)
 
 	fun FObject.accelerate(x: Int, y: Int) = accelerate(x.toDouble(), y.toDouble())
 
