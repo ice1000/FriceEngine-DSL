@@ -1,6 +1,7 @@
 import org.frice.dsl.game
 
 fun main(args: Array<String>) {
+	val 障碍物名 = "南墙"
 	game {
 		bounds(500, 500, 800, 750)
 		showFPS = false
@@ -29,7 +30,7 @@ fun main(args: Array<String>) {
 		}
 
 		长方形 {
-			name("障碍")
+			name(障碍物名)
 			x = 100.0
 			y = 100.0
 			width = 100.0
@@ -41,7 +42,7 @@ fun main(args: Array<String>) {
 				x = 10.0
 //				y = 10.0
 			}
-			whenColliding("障碍") {
+			当碰撞(障碍物名) {
 				stop()
 				x -= 5
 				accelerate(-2, 10)

@@ -271,6 +271,12 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 			collisions += Triple(this, other, SideEffect { block(this@whenColliding) })
 	}
 
+    fun PhysicalObject.当碰撞(
+            目标物名: String,
+            块: PhysicalObject.() -> Unit) {
+        this.whenColliding(目标物名, 块)
+    }
+
 	fun Traits.whenColliding(
 			otherName: String,
 			block: SideEffect) {
