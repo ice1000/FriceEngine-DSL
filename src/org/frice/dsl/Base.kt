@@ -140,7 +140,11 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 		addObject(io)
 	}
 
-    fun 图片(block: ImageObject.() -> Unit) = image(block)
+    fun 图片(block: DSLImageObject.() -> Unit) {
+        val io = DSLImageObject(ImageResource.empty())
+        block(io)
+        addObject(io)
+    }
 
 	fun text(block: SimpleText.() -> Unit) {
 		val st = SimpleText(text = "", x = 0.0, y = 0.0)
