@@ -41,17 +41,29 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 	}
 
 	val BLACK = ColorResource.BLACK
+    val 黑 = BLACK
 	val BLUE = ColorResource.BLUE
+    val 蓝 = BLUE
 	val RED = ColorResource.RED
+    val 红 = RED
 	val PINK = ColorResource.PINK
+    val 粉 = PINK
 	val GREEN = ColorResource.GREEN
+    val 绿 = GREEN
 	val GRAY = ColorResource.GRAY
+    val 灰 = GRAY
 	val WHITE = ColorResource.WHITE
+    val 白 = WHITE
 	val YELLOW = ColorResource.YELLOW
+    val 黄 = YELLOW
 	val COLORLESS = ColorResource.COLORLESS
+    val 无色 = COLORLESS
 	val CYAN = ColorResource.CYAN
+    val 青 = CYAN
 	val ORANGE = ColorResource.ORANGE
+    val 橙 = ORANGE
 	val MAGENTA = ColorResource.MAGENTA
+    val 洋红 = MAGENTA
 
 	var onExits = { }
 	var onClick = ArrayList<Consumer<AbstractObject>>(20)
@@ -69,6 +81,8 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 
 	val elapsed: Double
 		get() = timer.elapsed
+    val 经过时间: Double
+        get() = elapsed
 
 	/**
 	 * cannot be in 'onInit'
@@ -101,6 +115,8 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 		if (!f.exists()) f.createNewFile()
 		f.appendText("$s\n")
 	}
+
+    fun 日志(文本: String) = log(文本)
 
 	fun rectangle(block: DSLShapeObject.() -> Unit) {
 		val so = DSLShapeObject(ColorResource.西木野真姬, FRectangle(50, 50))
@@ -188,14 +204,19 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 	infix fun Int.randomDownTo(int: Int) = (Math.random() * (this - int) + int)
 
 	fun AbstractObject.name(s: String) = namedObjects.put(s, this)
+    fun AbstractObject.取名(名字: String) = this.name(名字)
 
 	fun ImageObject.file(s: String) {
 		res = ImageResource.fromPath(s)
 	}
 
+    fun ImageObject.文件(文件名: String) = this.file(文件名)
+
 	fun ImageObject.url(s: String) {
 		res = ImageResource.fromWeb(s)
 	}
+
+    fun ImageObject.远程文件(网址: String) = url(网址)
 
 	fun FObject.velocity(block: DoublePair.() -> Unit) {
 		val a = DoublePair(0.0, 0.0)
@@ -290,9 +311,7 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 
     fun PhysicalObject.当碰撞(
             目标物名: String,
-            块: PhysicalObject.() -> Unit) {
-        this.whenColliding(目标物名, 块)
-    }
+            块: PhysicalObject.() -> Unit) = this.whenColliding(目标物名, 块)
 
 	fun Traits.whenColliding(
 			otherName: String,

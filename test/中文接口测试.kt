@@ -3,8 +3,8 @@ import org.frice.dsl.游戏
 fun main(args: Array<String>) {
 	val 障碍物名 = "南墙"
 	游戏 {
-		边界(100, 100, 800, 750)
-		显示帧率 = true
+		边界(500, 500, 800, 750)
+		显示帧率 = false
 
 		当退出时 {
 			关闭窗口()
@@ -13,27 +13,27 @@ fun main(args: Array<String>) {
 		当更新时 {
 			if (800.毫秒后()) {
 				长方形 {
-					x = elapsed / 10.0
-					y = elapsed / 10.0
-					color = PINK
+					x = 经过时间 / 10.0
+					y = 经过时间 / 10.0
+					颜色 = 粉
 				}
 			}
 		}
 
 		每隔(1000) {
 			椭圆 {
-				x = elapsed / 10.0
-				y = elapsed / 10.0
-				color = ORANGE
+				x = 经过时间 / 10.0
+				y = 经过时间 / 10.0
+				颜色 = 橙
 			}
-			log("1 second has past.")
+			日志("1 second has past.")
 		}
 
 		长方形 {
-			name(障碍物名)
+			取名(障碍物名)
 			x = 100.0
 			y = 100.0
-			width = 100.0
+			宽 = 100.0
 		}
 		椭圆 {
 			x = 0.0
@@ -49,7 +49,7 @@ fun main(args: Array<String>) {
 			}
 		}
 		图片 {
-			url("https://avatars3.githubusercontent.com/u/16398479")
+			远程文件("https://avatars3.githubusercontent.com/u/16398479")
 			x = 200.0
 			y = 300.0
 			速度 {
