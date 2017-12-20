@@ -102,7 +102,7 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 		bounds = Rectangle(x, y, width, height)
 	}
 
-    fun 边界(x: Int, y: Int, 宽: Int, 高: Int) = bounds(x, y, 宽, 高)
+    fun 边界(左上角x: Int, 左上角y: Int, 宽: Int, 高: Int) = bounds(左上角x, 左上角y, 宽, 高)
 
 	fun bounds(block: Rectangle.() -> Unit) {
 		val t = Rectangle(x, y, width, height)
@@ -283,7 +283,7 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 
 	fun FObject.accelerate(x: Int, y: Int) = accelerate(x.toDouble(), y.toDouble())
 
-    fun FObject.加速(x: Int, y: Int) = accelerate(x, y)
+    fun FObject.加速(横向加速度_左负右正: Int, 纵向加速度_上负下正: Int) = accelerate(横向加速度_左负右正, 纵向加速度_上负下正)
 
 	fun Traits.accelerate(block: AccelerateMoveForTraits.() -> Unit) {
 		val a = AccelerateMoveForTraits(0.0, 0.0)
