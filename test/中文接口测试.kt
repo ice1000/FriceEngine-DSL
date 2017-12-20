@@ -11,7 +11,7 @@ fun main(args: Array<String>) {
 
 		whenUpdate {
 			if (800.elapsed()) {
-				rectangle {
+				长方形 {
 					x = elapsed / 10.0
 					y = elapsed / 10.0
 					color = PINK
@@ -20,7 +20,7 @@ fun main(args: Array<String>) {
 		}
 
 		every(1000) {
-			oval {
+			椭圆 {
 				x = elapsed / 10.0
 				y = elapsed / 10.0
 				color = ORANGE
@@ -29,26 +29,26 @@ fun main(args: Array<String>) {
 		}
 
 		长方形 {
-			name("rectangle")
+			name("障碍")
 			x = 100.0
 			y = 100.0
 			width = 100.0
 		}
-		oval {
+		椭圆 {
 			x = 0.0
 			y = 85.0
 			accelerate {
 				x = 10.0
 //				y = 10.0
 			}
-			whenColliding("rectangle") {
+			whenColliding("障碍") {
 				stop()
 				x -= 5
 				accelerate(-2, 10)
 			}
 		}
 		image {
-			file("C:/frice.png")
+			url("https://avatars3.githubusercontent.com/u/16398479")
 			x = 200.0
 			y = 300.0
 			velocity {

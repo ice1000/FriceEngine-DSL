@@ -116,6 +116,10 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 		addObject(so)
 	}
 
+    fun 椭圆(block: DSLShapeObject.() -> Unit) {
+        oval(block)
+    }
+
 	fun image(block: ImageObject.() -> Unit) {
 		val io = ImageObject(ImageResource.empty())
 		block(io)
