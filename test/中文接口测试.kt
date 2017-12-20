@@ -1,17 +1,17 @@
-import org.frice.dsl.game
+import org.frice.dsl.游戏
 
 fun main(args: Array<String>) {
 	val 障碍物名 = "南墙"
-	game {
-		bounds(500, 500, 800, 750)
-		showFPS = false
+	游戏 {
+		边界(100, 100, 800, 750)
+		显示帧率 = true
 
-		whenExit {
-			closeWindow()
+		当退出时 {
+			关闭窗口()
 		}
 
-		whenUpdate {
-			if (800.elapsed()) {
+		当更新时 {
+			if (800.毫秒后()) {
 				长方形 {
 					x = elapsed / 10.0
 					y = elapsed / 10.0
@@ -20,7 +20,7 @@ fun main(args: Array<String>) {
 			}
 		}
 
-		every(1000) {
+		每隔(1000) {
 			椭圆 {
 				x = elapsed / 10.0
 				y = elapsed / 10.0
@@ -38,21 +38,21 @@ fun main(args: Array<String>) {
 		椭圆 {
 			x = 0.0
 			y = 85.0
-			accelerate {
+			加速 {
 				x = 10.0
 //				y = 10.0
 			}
 			当碰撞(障碍物名) {
-				stop()
+				停止()
 				x -= 5
-				accelerate(-2, 10)
+				加速(-2, 10)
 			}
 		}
-		image {
+		图片 {
 			url("https://avatars3.githubusercontent.com/u/16398479")
 			x = 200.0
 			y = 300.0
-			velocity {
+			速度 {
 				x = -5.5
 //				y = -5.5
 			}

@@ -88,6 +88,8 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 		bounds = Rectangle(x, y, width, height)
 	}
 
+    fun 边界(x: Int, y: Int, 宽: Int, 高: Int) = bounds(x, y, 宽, 高)
+
 	fun bounds(block: Rectangle.() -> Unit) {
 		val t = Rectangle(x, y, width, height)
 		block(t)
@@ -106,9 +108,7 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 		addObject(so)
 	}
 
-	fun 长方形(block: DSLShapeObject.() -> Unit) {
-		rectangle(block)
-	}
+	fun 长方形(块: DSLShapeObject.() -> Unit) = rectangle(块)
 
 	fun oval(block: DSLShapeObject.() -> Unit) {
 		val so = DSLShapeObject(ColorResource.西木野真姬, FOval(25.0, 25.0))
@@ -116,15 +116,15 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 		addObject(so)
 	}
 
-    fun 椭圆(block: DSLShapeObject.() -> Unit) {
-        oval(block)
-    }
+    fun 椭圆(块: DSLShapeObject.() -> Unit) = oval(块)
 
 	fun image(block: ImageObject.() -> Unit) {
 		val io = ImageObject(ImageResource.empty())
 		block(io)
 		addObject(io)
 	}
+
+    fun 图片(block: ImageObject.() -> Unit) = image(block)
 
 	fun text(block: SimpleText.() -> Unit) {
 		val st = SimpleText(text = "", x = 0.0, y = 0.0)
@@ -148,9 +148,13 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 		onExits = block
 	}
 
+    fun 当退出时(块: () -> Unit) = whenExit(块)
+
 	fun whenUpdate(block: () -> Unit) {
 		onUpdates = block
 	}
+
+    fun 当更新时(块: () -> Unit) = whenUpdate(块)
 
 	fun whenClicked(block: AbstractObject.() -> Unit) {
 		onClick.add(Consumer(block))
@@ -160,6 +164,8 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 		timers.add(millisSeconds to SideEffect { block(timer) })
 	}
 
+    fun 每隔(毫秒: Int, 块: FriceGameTimer.() -> Unit) = every(毫秒, 块)
+
 	fun tell(name: String, block: FObject.() -> Unit) =
 			if (name in namedObjects) block(namedObjects[name] as FObject)
 			else throw DSLErrorException()
@@ -168,6 +174,7 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 
 	fun Long.elapsed() = timer.stopWatch(this)
 	fun Int.elapsed() = timer.stopWatch(this.toLong())
+    fun Int.毫秒后() = this.elapsed()
 	infix fun Long.from(begin: Long) = this - begin
 	infix fun Long.from(begin: Int) = this - begin
 	infix fun Int.from(begin: Int) = this - begin
@@ -195,6 +202,8 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 		block(a)
 		anims += AccurateMove(a.x, a.y)
 	}
+
+    fun FObject.速度(块: DoublePair.() -> Unit) = this.velocity(块)
 
 	fun FObject.velocity(x: Int, y: Int) = velocity(x.toDouble(), y.toDouble())
 
@@ -232,7 +241,9 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 	}
 
 	fun FObject.stop() = anims.clear()
-	val FObject.stop: Unit
+    fun FObject.停止() = this.stop()
+
+    val FObject.stop: Unit
 		get() = stop()
 
 	fun FObject.accelerate(block: DoublePair.() -> Unit) {
@@ -241,11 +252,17 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 		anims += AccelerateMove(a.x, a.y)
 	}
 
+    fun FObject.加速(块: DoublePair.() -> Unit) = accelerate(块)
+
 	fun FObject.accelerate(x: Double, y: Double) {
 		anims += AccelerateMove(x, y)
 	}
 
+    fun FObject.加速(x: Double, y: Double) = accelerate(x, y)
+
 	fun FObject.accelerate(x: Int, y: Int) = accelerate(x.toDouble(), y.toDouble())
+
+    fun FObject.加速(x: Int, y: Int) = accelerate(x, y)
 
 	fun Traits.accelerate(block: AccelerateMoveForTraits.() -> Unit) {
 		val a = AccelerateMoveForTraits(0.0, 0.0)
@@ -353,6 +370,7 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 	fun inputString(msg: String, title: String = "Input text") = dialogInput(msg, title)
 
 	fun closeWindow() = System.exit(0)
+    fun 关闭窗口() = closeWindow()
 	val closeWindow get () = closeWindow()
 
 	fun cutScreen() = screenCut.image.image2File("screenshot.png")
@@ -379,10 +397,17 @@ open class FriceBase(val block: FriceBase.() -> Unit) : Game() {
 		}
 		super.onMouse(e)
 	}
+
+    var 显示帧率: Boolean
+        get() = showFPS
+        set(值) {
+            showFPS = 值
+        }
 }
 
 class DSLErrorException : Exception("Error DSL!")
 
 @JvmName("gameInPackage")
 fun game(block: FriceBase.() -> Unit) = launch(FriceBase(block))
+fun 游戏(块: FriceBase.() -> Unit) = game(块)
 
